@@ -21,6 +21,7 @@ public class HelloController {
     public String success(Map<String, Object> map) {
         map.put("hello", "<h1>你好</h1>");
         map.put("users", Arrays.asList("zhangsan", "lisi", "wangwu"));
+        // classpath:/templates/success.html
         return "success";
     }
 }
