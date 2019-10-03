@@ -2,6 +2,8 @@ package com.example.springboot.config;
 
 import com.example.springboot.component.LoginHandlerInterceptor;
 import com.example.springboot.component.MyLocaleResolver;
+import org.springframework.boot.web.server.ConfigurableWebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
@@ -11,6 +13,17 @@ import org.springframework.web.servlet.config.annotation.*;
 //@EnableWebMvc 不要接管SpringMVC
 @Configuration
 public class MyMvcConfig implements WebMvcConfigurer {
+
+    @Bean
+    public WebServerFactoryCustomizer<ConfigurableWebServerFactory> webServerFactoryCustomizer() {
+        return new WebServerFactoryCustomizer<ConfigurableWebServerFactory>() {
+            // 定制嵌入式的Servlet容器相关的规则
+            @Override
+            public void customize(ConfigurableWebServerFactory factory) {
+                factory.setPort(8083);
+            }
+        };
+    }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
